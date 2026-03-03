@@ -3,7 +3,7 @@ import { useTheme } from '../../context/ThemeContext';
 import API from '../../utils/api';
 
 const LEETCODE_USERNAME = 'samir_alam';
-const CV_URL = '/resume.pdf';
+const CV_URL = '/Resume.pdf';
 
 const Gallery = () => {
   const { isDark } = useTheme();
