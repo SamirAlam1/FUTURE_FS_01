@@ -132,7 +132,7 @@ const Gallery = () => {
                 isDark ? 'border-violet-500/10' : 'border-gray-100'
               }`}>
                 <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                  PDF nahi dikh raha? Neeche download karo 👇
+                  PDF is not visible? Download Here 👉
                 </p>
                 <a href={CV_URL} download="Samir_Alam_Resume.pdf"
                   className="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-white text-sm transition-all hover:-translate-y-0.5"
