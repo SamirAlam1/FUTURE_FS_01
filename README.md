@@ -1,4 +1,4 @@
-# 🚀 Portfolio CMS — Full Stack MERN Application
+# 🚀 Portfolio CMS — A Full Stack MERN Application
 
 A **production-ready** developer portfolio website with a protected admin dashboard built with the MERN stack.
 
