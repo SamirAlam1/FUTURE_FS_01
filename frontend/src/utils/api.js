@@ -25,7 +25,7 @@ import axios from "axios";
 //   withCredentials: true,
 // });
 const API = axios.create({
-  baseURL: "https://my-portfolio-2-qgfg.onrender.com/api",
+  baseURL: "https://my-portfolio-samir.onrender.com/api",
   timeout: 10000,
   withCredentials: true,
 });
