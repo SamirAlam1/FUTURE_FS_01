@@ -28,7 +28,7 @@ const About = () => {
               isDark ? "text-gray-400" : "text-gray-600"
             }`}
           >
-            Full Stack MERN Developer passionate about building scalable,
+            Full Stack WEB Developer (MERN) passionate about building scalable,
             user-friendly and high-performance web applications.
           </p>
         </div>
