@@ -64,7 +64,7 @@ const Home = () => {
               isDark ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            Full Stack <span className="gradient-text">MERN Developer</span>
+            Full Stack <span className="gradient-text">WEB Developer (MERN)</span>
           </p>
 
           <p
