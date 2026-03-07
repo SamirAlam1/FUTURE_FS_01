@@ -61,7 +61,7 @@ const About = () => {
           </div>
 
           {/* ─── Bio Content ─── */}
-          <div className="md:w-1/2 space-y-6 text-center md:text-left">
+          <div className="md:w-1/2 space-y-6 text-center ">
             <h2
               className={`text-2xl font-semibold ${
                 isDark ? "text-white" : "text-gray-900"
