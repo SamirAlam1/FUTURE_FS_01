@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <main className="min-h-screen">
       {/* ── Top Left Portfolio Brand ─────────────────── */}
-      <div className="fixed top-0 left-0 z-50 p-4 md:p-5">
+      {/* <div className="fixed top-0 left-0 z-50 p-4 md:p-5">
         <span
           className="text-base md:text-xl font-black tracking-widest uppercase select-none"
           style={{
@@ -40,7 +40,7 @@ const Home = () => {
         >
           ✦ PORTFOLIO
         </span>
-      </div>
+      </div> */}
 
       {/* ── Hero ─────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
