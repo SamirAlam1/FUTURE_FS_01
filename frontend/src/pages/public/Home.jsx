@@ -1,11 +1,47 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const { isDark } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleDownloadCV = () => {
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "Samir_Alam_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <main className="min-h-screen">
+      {/* ── Top Left Portfolio Brand ─────────────────── */}
+      <div className="fixed top-0 left-0 z-50 p-5">
+        <span
+          className="text-xl font-black tracking-widest uppercase select-none"
+          style={{
+            background: isDark
+              ? "linear-gradient(135deg, #a78bfa, #38bdf8, #34d399)"
+              : "linear-gradient(135deg, #7c3aed, #0ea5e9, #10b981)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            filter: isDark
+              ? "drop-shadow(0 0 12px rgba(167,139,250,0.5))"
+              : "drop-shadow(0 2px 4px rgba(124,58,237,0.3))",
+            letterSpacing: "0.22em",
+          }}
+        >
+          ✦ PORTFOLIO
+        </span>
+      </div>
+
       {/* ── Hero ─────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
         {/* Animated background blobs */}
@@ -36,7 +72,14 @@ const Home = () => {
           />
         </div>
 
-        <div className="relative z-10 text-center max-w-4xl mx-auto animate-fade-in">
+        <div
+          className="relative z-10 text-center max-w-4xl mx-auto"
+          style={{
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.7s ease, transform 0.7s ease",
+          }}
+        >
           {/* Available badge */}
           <div
             className={`mb-8 inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold border ${
@@ -55,16 +98,36 @@ const Home = () => {
               isDark ? "text-white" : "text-gray-900"
             }`}
           >
-            Hi, I'm <span className="gradient-text">Samir Alam</span>
+            Hi, I'm{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg, #7c3aed, #06b6d4)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Samir Alam
+            </span>
           </h1>
 
-          {/* Typewriter subtitle */}
+          {/* Subtitle */}
           <p
             className={`text-xl md:text-2xl font-semibold mb-5 ${
               isDark ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            Full Stack <span className="gradient-text">WEB Developer (MERN)</span>
+            Full Stack{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg, #7c3aed, #06b6d4)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              WEB Developer (MERN)
+            </span>
           </p>
 
           <p
@@ -78,7 +141,7 @@ const Home = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <Link
               to="/projects"
               className="btn-primary text-center text-base px-8 py-3"
@@ -91,6 +154,69 @@ const Home = () => {
             >
               Get In Touch
             </Link>
+          </div>
+
+          {/* ── Download CV Button ── */}
+          <div className="flex justify-center mb-16">
+            <button
+              onClick={handleDownloadCV}
+              className={`group relative inline-flex items-center gap-3 px-8 py-3 rounded-full text-base font-bold overflow-hidden transition-all duration-300 ${
+                isDark
+                  ? "text-white border border-violet-500/40 hover:border-violet-400"
+                  : "text-violet-700 border border-violet-300 hover:border-violet-500"
+              }`}
+              style={{
+                background: isDark
+                  ? "linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.10))"
+                  : "linear-gradient(135deg, rgba(124,58,237,0.06), rgba(6,182,212,0.06))",
+              }}
+            >
+              {/* Shimmer effect */}
+              <span
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(124,58,237,0.25), rgba(6,182,212,0.20))",
+                }}
+              />
+
+              {/* Download icon */}
+              <span className="relative z-10 flex items-center gap-3">
+                <span
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-sm"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #7c3aed, #06b6d4)",
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-4 h-4 text-white group-hover:translate-y-0.5 transition-transform duration-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                    style={{ color: "white" }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"
+                    />
+                  </svg>
+                </span>
+                <span>Download CV</span>
+                <span
+                  className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                    isDark
+                      ? "bg-emerald-500/20 text-emerald-400"
+                      : "bg-emerald-100 text-emerald-600"
+                  }`}
+                >
+                  PDF
+                </span>
+              </span>
+            </button>
           </div>
 
           {/* Stats */}
@@ -116,9 +242,21 @@ const Home = () => {
                     : ""
                 }`}
               >
-                <div className="text-2xl font-black gradient-text">{value}</div>
                 <div
-                  className={`text-xs mt-1 font-medium ${isDark ? "text-gray-500" : "text-gray-400"}`}
+                  className="text-2xl font-black"
+                  style={{
+                    background: "linear-gradient(135deg, #7c3aed, #06b6d4)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  {value}
+                </div>
+                <div
+                  className={`text-xs mt-1 font-medium ${
+                    isDark ? "text-gray-500" : "text-gray-400"
+                  }`}
                 >
                   {label}
                 </div>
