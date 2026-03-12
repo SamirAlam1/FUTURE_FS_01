@@ -46,9 +46,25 @@ const Navbar = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
 
-            {/* Logo */}
-            <Link to="/" className="font-mono text-lg font-bold gradient-text">
-              &lt;Samir Alam /&gt;
+            {/* ── PORTFOLIO Brand Logo ── */}
+            <Link to="/" className="select-none">
+              <span
+                className="text-base md:text-lg font-black tracking-widest uppercase"
+                style={{
+                  background: isDark
+                    ? "linear-gradient(135deg, #a78bfa, #38bdf8, #34d399)"
+                    : "linear-gradient(135deg, #7c3aed, #0ea5e9, #10b981)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: isDark
+                    ? "drop-shadow(0 0 10px rgba(167,139,250,0.4))"
+                    : "drop-shadow(0 1px 3px rgba(124,58,237,0.25))",
+                  letterSpacing: "0.18em",
+                }}
+              >
+                ✦ PORTFOLIO
+              </span>
             </Link>
 
             {/* Desktop Links */}
@@ -106,7 +122,20 @@ const Navbar = () => {
         <div className={`flex items-center justify-between px-5 py-4 border-b ${
           isDark ? 'border-violet-500/10' : 'border-violet-100'
         }`}>
-          <span className="font-mono font-bold gradient-text">&lt;Samir Alam /&gt;</span>
+          <span
+            className="font-black tracking-widest uppercase text-sm"
+            style={{
+              background: isDark
+                ? "linear-gradient(135deg, #a78bfa, #38bdf8, #34d399)"
+                : "linear-gradient(135deg, #7c3aed, #0ea5e9, #10b981)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              letterSpacing: "0.18em",
+            }}
+          >
+            ✦ PORTFOLIO
+          </span>
           <button onClick={() => setIsOpen(false)} aria-label="Close menu"
             className={`p-2 rounded-xl transition-colors ${
               isDark ? 'text-gray-400 hover:text-white hover:bg-violet-500/10' : 'text-gray-500 hover:text-gray-900 hover:bg-violet-50'
