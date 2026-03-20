@@ -17,7 +17,7 @@ const Education = () => {
       <div className="max-w-4xl mx-auto">
         <div className="mb-12">
           <h1 className="section-title">Education</h1>
-          <p className="section-subtitle">My academic background and certifications</p>
+          <p className="section-subtitle">A summary of my education, certifications, and consistent efforts toward learning and professional development.</p>
         </div>
 
         {loading ? <LoadingSpinner size="lg" className="py-20" /> :
