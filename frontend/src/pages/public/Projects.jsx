@@ -60,7 +60,7 @@ const Projects = () => {
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
           <h1 className="section-title">Projects</h1>
-          <p className="section-subtitle">Under Development ....</p>
+          <p className="section-subtitle">I have Developed full-stack web application using MongoDB, Express, React, and Node.js with responsive UI, REST APIs, and secure authentication.</p>
           {/* <p className="section-subtitle">Things I've built</p> */}
         </div>
 
