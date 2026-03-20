@@ -50,7 +50,7 @@ const Blog = () => {
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
           <h1 className="section-title">Blog</h1>
-          <p className="section-subtitle">Thoughts, tutorials, and insights</p>
+          <p className="section-subtitle">A space where I share my learnings, experiences, and insights from my web development journey.</p>
         </div>
         {loading ? <LoadingSpinner size="lg" className="py-20" /> :
          posts.length === 0 ? (
