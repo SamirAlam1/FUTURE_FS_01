@@ -31,9 +31,7 @@ router.get('/', async (req, res) => {
       name:     process.env.ADMIN_NAME     || 'Samir Alam',
       email:    process.env.ADMIN_EMAIL    || 'admin@portfolio.com',
       password: process.env.ADMIN_PASSWORD || 'Admin@1234',
-      message: '🎉 Seed complete! Now perform admin login.',
 });
-    });
 
     // ── Skills ───────────────────────────────────────
     await Skill.insertMany([
