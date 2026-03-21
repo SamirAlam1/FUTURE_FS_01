@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
     // ── Admin User ───────────────────────────────────
     await User.create({
       name:     process.env.ADMIN_NAME     || 'Samir Alam',
-      email:    process.env.ADMIN_EMAIL    || 'admin@portfolio.com,
+      email:    process.env.ADMIN_EMAIL    || 'admin@portfolio.com',
       password: process.env.ADMIN_PASSWORD || 'Admin@1234',
       message: '🎉 Seed complete! Now perform admin login.',
 });
