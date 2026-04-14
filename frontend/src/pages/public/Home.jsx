@@ -224,9 +224,9 @@ const Home = () => {
             }`}
           >
             {[
-              { value: "3+", label: "Years Exp." },
-              { value: "20+", label: "Projects" },
-              { value: "10+", label: "Technologies" },
+              { value: "Student", label: "Exp." },
+              { value: "3+", label: "Projects" },
+              { value: "15+", label: "Technologies" },
             ].map(({ value, label }, i, arr) => (
               <div
                 key={label}
