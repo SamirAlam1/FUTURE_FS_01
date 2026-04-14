@@ -6,7 +6,7 @@ const About = () => {
   const infoItems = [
     { label: "Location", value: "Ankleshwar, Gujarat, India", icon: "📍" },
     { label: "Education", value: "IT Undergraduate", icon: "🎓" },
-    { label: "Experience", value: "1+ Years Learning", icon: "💼" },
+    { label: "Experience", value: "Student", icon: "💼" },
     { label: "Availability", value: "Open to Work", icon: "✅" },
   ];
 
