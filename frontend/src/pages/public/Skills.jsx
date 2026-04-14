@@ -53,7 +53,7 @@ const Skills = () => {
          Object.keys(grouped).length === 0 ? (
           <div className={`text-center py-20 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>No skills added yet.</div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {Object.entries(grouped).map(([category, categorySkills], i) => {
               const colors = categoryColors[category] || categoryColors.Other;
               return (
