@@ -71,7 +71,7 @@ const Dashboard = () => {
       {/* Welcome */}
       <div className="mb-8">
         <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-          Welcome back, <span className="gradient-text">Samir Sir</span> 👋
+          Welcome back, <span className="gradient-text">Samir</span> 👋
         </h1>
         <p className={`mt-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Here's an overview of my portfolio</p>
       </div>
