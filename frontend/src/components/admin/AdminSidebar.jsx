@@ -8,8 +8,8 @@ const menuItems = [
   { to: '/admin/projects',  label: 'Projects',         icon: '💼' },
   { to: '/admin/skills',    label: 'Skills',           icon: '🛠️' },
   { to: '/admin/education', label: 'Education',        icon: '🎓' },
-  { to: '/admin/blogs',     label: 'Blog Posts',       icon: '📝' },
-  { to: '/admin/gallery',   label: 'Gallery',          icon: '🖼️' },
+  // { to: '/admin/blogs',     label: 'Blog Posts',       icon: '📝' },
+  // { to: '/admin/gallery',   label: 'Gallery',          icon: '🖼️' },
   { to: '/admin/messages',  label: 'Contact Messages', icon: '✉️' },
 ];
 
