@@ -35,9 +35,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [projects, skills, education, blogs, messages] = await Promise.all([
+        const [projects, skills, education, messages] = await Promise.all([
           API.get('/projects'), API.get('/skills'), API.get('/education'),
-          // API.get('/blogs'), 
           API.get('/messages'),
         ]);
         setStats({
