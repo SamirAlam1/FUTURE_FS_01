@@ -14,9 +14,9 @@ import About      from './pages/public/About';
 import Education  from './pages/public/Education';
 import Skills     from './pages/public/Skills';
 import Projects   from './pages/public/Projects';
-import Blog       from './pages/public/Blog';
-import BlogDetail from './pages/public/BlogDetail';
-import Gallery    from './pages/public/Gallery';
+// import Blog       from './pages/public/Blog';
+// import BlogDetail from './pages/public/BlogDetail';
+// import Gallery    from './pages/public/Gallery';
 import Contact    from './pages/public/Contact';
 
 // Admin Pages
@@ -25,8 +25,8 @@ import Dashboard   from './pages/admin/Dashboard';
 import { AdminProjectsList, AdminProjectForm }   from './pages/admin/AdminProjects';
 import { AdminSkillsList,   AdminSkillForm }     from './pages/admin/AdminSkills';
 import { AdminEducationList, AdminEducationForm } from './pages/admin/AdminEducation';
-import { AdminBlogList,     AdminBlogForm }      from './pages/admin/AdminBlogs';
-import { AdminGalleryList,  AdminGalleryForm }   from './pages/admin/AdminGallery';
+// import { AdminBlogList,     AdminBlogForm }      from './pages/admin/AdminBlogs';
+// import { AdminGalleryList,  AdminGalleryForm }   from './pages/admin/AdminGallery';
 import AdminMessages from './pages/admin/AdminMessages';
 
 const PublicLayout = ({ children }) => (
@@ -49,9 +49,9 @@ function App() {
             <Route path="/education" element={<PublicLayout><Education /></PublicLayout>} />
             <Route path="/skills"    element={<PublicLayout><Skills /></PublicLayout>} />
             <Route path="/projects"  element={<PublicLayout><Projects /></PublicLayout>} />
-            <Route path="/blog"      element={<PublicLayout><Blog /></PublicLayout>} />
+            {/* <Route path="/blog"      element={<PublicLayout><Blog /></PublicLayout>} />
             <Route path="/blog/:id"  element={<PublicLayout><BlogDetail /></PublicLayout>} />
-            <Route path="/gallery"   element={<PublicLayout><Gallery /></PublicLayout>} />
+            <Route path="/gallery"   element={<PublicLayout><Gallery /></PublicLayout>} /> */}
             <Route path="/contact"   element={<PublicLayout><Contact /></PublicLayout>} />
 
             {/* Admin Routes */}
@@ -69,12 +69,12 @@ function App() {
                 <Route path="/admin/education"        element={<AdminEducationList />} />
                 <Route path="/admin/education/new"    element={<AdminEducationForm />} />
                 <Route path="/admin/education/edit/:id" element={<AdminEducationForm />} />
-                <Route path="/admin/blogs"            element={<AdminBlogList />} />
+                {/* <Route path="/admin/blogs"            element={<AdminBlogList />} />
                 <Route path="/admin/blogs/new"        element={<AdminBlogForm />} />
                 <Route path="/admin/blogs/edit/:id"   element={<AdminBlogForm />} />
                 <Route path="/admin/gallery"          element={<AdminGalleryList />} />
                 <Route path="/admin/gallery/new"      element={<AdminGalleryForm />} />
-                <Route path="/admin/gallery/edit/:id" element={<AdminGalleryForm />} />
+                <Route path="/admin/gallery/edit/:id" element={<AdminGalleryForm />} /> */}
                 <Route path="/admin/messages"         element={<AdminMessages />} />
               </Route>
             </Route>
