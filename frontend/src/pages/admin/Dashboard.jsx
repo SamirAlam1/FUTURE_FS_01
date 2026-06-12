@@ -37,13 +37,14 @@ const Dashboard = () => {
       try {
         const [projects, skills, education, blogs, messages] = await Promise.all([
           API.get('/projects'), API.get('/skills'), API.get('/education'),
-          API.get('/blogs'), API.get('/messages'),
+          // API.get('/blogs'), 
+          API.get('/messages'),
         ]);
         setStats({
           projects:  projects.data.count,
           skills:    skills.data.count,
           education: education.data.count,
-          blogs:     blogs.data.count,
+          // blogs:     blogs.data.count,
           messages:  messages.data.count,
           unread:    messages.data.data.filter((m) => !m.read).length,
         });
@@ -60,7 +61,7 @@ const Dashboard = () => {
     { label: 'Projects',        value: stats.projects,  icon: '💼', to: '/admin/projects',  gradient: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05))' },
     { label: 'Skills',          value: stats.skills,    icon: '🛠️', to: '/admin/skills',    gradient: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05))'  },
     { label: 'Education',       value: stats.education, icon: '🎓', to: '/admin/education', gradient: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05))' },
-    { label: 'Blog Posts',      value: stats.blogs,     icon: '📝', to: '/admin/blogs',     gradient: 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05))' },
+    // { label: 'Blog Posts',      value: stats.blogs,     icon: '📝', to: '/admin/blogs',     gradient: 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05))' },
     { label: 'Total Messages',  value: stats.messages,  icon: '✉️', to: '/admin/messages',  gradient: 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(236,72,153,0.05))' },
     { label: 'Unread Messages', value: stats.unread,    icon: '🔔', to: '/admin/messages',  gradient: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05))'   },
   ];
@@ -88,7 +89,7 @@ const Dashboard = () => {
         <h2 className={`text-base font-bold mb-4 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
           <Link to="/admin/projects/new" className="btn-primary text-sm">+ New Project</Link>
-          <Link to="/admin/blogs/new"    className="btn-primary text-sm">+ New Blog Post</Link>
+          {/* <Link to="/admin/blogs/new"    className="btn-primary text-sm">+ New Blog Post</Link> */}
           <Link to="/admin/skills/new"   className="btn-secondary text-sm">+ Add Skill</Link>
           <Link to="/admin/education/new" className="btn-secondary text-sm">+ Add Education</Link>
         </div>
