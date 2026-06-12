@@ -9,8 +9,8 @@ const navLinks = [
   { to: '/education', label: 'Education', icon: '🎓' },
   { to: '/skills',    label: 'Skills',    icon: '🛠️' },
   { to: '/projects',  label: 'Projects',  icon: '💼' },
-  { to: '/blog',      label: 'Blog',      icon: '📝' },
-  { to: '/gallery',   label: 'Gallery',   icon: '🖼️' },
+  // { to: '/blog',      label: 'Blog',      icon: '📝' },
+  // { to: '/gallery',   label: 'Gallery',   icon: '🖼️' },
   { to: '/contact',   label: 'Contact',   icon: '✉️' },
 ];
 
