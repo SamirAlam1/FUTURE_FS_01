@@ -1,33 +1,32 @@
-const jwt = require('jsonwebtoken');
+// middleware/auth.js — FIXED
+const jwt  = require('jsonwebtoken');
 const User = require('../models/User');
 
-// Protect routes — verifies JWT token
 const protect = async (req, res, next) => {
   let token;
 
-  // Check for Bearer token in Authorization header
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+  if (req.headers.authorization?.startsWith('Bearer ')) {
     token = req.headers.authorization.split(' ')[1];
   }
 
   if (!token) {
-    return res.status(401).json({ success: false, message: 'Not authorized, no token provided' });
+    return res.status(401).json({ success: false, message: 'Not authorized — no token' });
   }
 
   try {
-    // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Attach user to request (excluding password)
-    req.user = await User.findById(decoded.id).select('-password');
-
-    if (!req.user) {
-      return res.status(401).json({ success: false, message: 'User not found' });
+    // FIX: Use .select('-password') explicitly — never accidentally attach password hash
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Not authorized — user not found' });
     }
 
+    req.user = user;
     next();
-  } catch (error) {
-    return res.status(401).json({ success: false, message: 'Not authorized, invalid token' });
+  } catch (err) {
+    // Let the centralized errorHandler format this
+    next(err);
   }
 };
 
