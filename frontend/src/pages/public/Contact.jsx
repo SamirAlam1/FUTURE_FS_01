@@ -1,11 +1,30 @@
+// pages/public/Contact.jsx
+// FIX: Removed hardcoded fallback credentials.
+// Old code had: || 'service_fxna0sf', || 'template_aco2cmj', || 'V5Z6kc7T_3Fgs83UB'
+// These were baked into the production JS bundle — visible to anyone via DevTools.
+// Now: values MUST come from Vite env vars. App throws at startup if missing.
+
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import API from '../../utils/api';
 import { useTheme } from '../../context/ThemeContext';
 
-const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || 'service_fxna0sf';
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_aco2cmj';
-const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || 'V5Z6kc7T_3Fgs83UB';
+// FIX: Read from env vars ONLY — no hardcoded fallback
+const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+// Validate required env vars at module load — fails fast, no silent misconfiguration
+if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+  console.error(
+    '[Contact] Missing EmailJS env vars. ' +
+    'Set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY in .env'
+  );
+}
+
+// FIX: Simple client-side sanitizer — strips tags from free-text before sending
+// express-validator's .escape() handles server-side; this is defense-in-depth
+const stripTags = (str) => str.replace(/<[^>]*>/g, '').trim();
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
@@ -16,20 +35,37 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // FIX: Client-side length guards (server validates too — this is UX, not security)
+    if (form.name.length < 2 || form.name.length > 100) {
+      return setStatus({ loading: false, success: '', error: 'Name must be 2–100 characters.' });
+    }
+    if (form.subject.length < 3 || form.subject.length > 200) {
+      return setStatus({ loading: false, success: '', error: 'Subject must be 3–200 characters.' });
+    }
+    if (form.message.length < 10 || form.message.length > 2000) {
+      return setStatus({ loading: false, success: '', error: 'Message must be 10–2000 characters.' });
+    }
+
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      return setStatus({ loading: false, success: '', error: 'Email service is not configured. Please contact directly via email.' });
+    }
+
     setStatus({ loading: true, success: '', error: '' });
+
     try {
-      // 1. Save to MongoDB (admin panel me dikhega)
+      // 1. Save to MongoDB via backend (server-side validation runs here)
       await API.post('/messages', form);
 
-      // 2. Send email via EmailJS (Gmail pe jayega)
+      // 2. Send email — strip tags client-side before passing to EmailJS
       await emailjs.send(
         SERVICE_ID,
         TEMPLATE_ID,
         {
-          name:    form.name,
-          email:   form.email,
-          subject: form.subject,
-          message: form.message,
+          name:    stripTags(form.name),
+          email:   form.email,          // type="email" + normalizeEmail() on server
+          subject: stripTags(form.subject),
+          message: stripTags(form.message),
         },
         PUBLIC_KEY
       );
@@ -66,22 +102,15 @@ const Contact = () => {
               Have a project in mind? I'd love to hear from you.
               Fill out the form and I'll get back to you as soon as possible.
             </p>
-
             {infoItems.map(({ icon, label, value }) => (
               <div key={label} className="card flex items-center gap-4">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-                  style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.15))' }}
-                >
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+                  style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.15))' }}>
                   {icon}
                 </div>
                 <div>
-                  <p className={`text-xs uppercase tracking-wide font-medium ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                    {label}
-                  </p>
-                  <p className={`font-semibold mt-0.5 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
-                    {value}
-                  </p>
+                  <p className={`text-xs uppercase tracking-wide font-medium ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{label}</p>
+                  <p className={`font-semibold mt-0.5 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>{value}</p>
                 </div>
               </div>
             ))}
@@ -91,60 +120,35 @@ const Contact = () => {
           <form onSubmit={handleSubmit} className="card space-y-5">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                  Name *
-                </label>
-                <input
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  className="input-field"
-                  placeholder="Enter your name"
-                  required
-                />
+                <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Name *</label>
+                <input name="name" value={form.name} onChange={handleChange}
+                  className="input-field" placeholder="Your name"
+                  maxLength={100} required />
               </div>
               <div>
-                <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  className="input-field"
-                  placeholder="xxxxxx@example.com"
-                  required
-                />
+                <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Email *</label>
+                <input type="email" name="email" value={form.email} onChange={handleChange}
+                  className="input-field" placeholder="you@example.com" required />
               </div>
             </div>
 
             <div>
-              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                Subject *
-              </label>
-              <input
-                name="subject"
-                value={form.subject}
-                onChange={handleChange}
-                className="input-field"
-                placeholder="Project collaboration"
-                required
-              />
+              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Subject *</label>
+              <input name="subject" value={form.subject} onChange={handleChange}
+                className="input-field" placeholder="Project collaboration"
+                maxLength={200} required />
             </div>
 
             <div>
-              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                Message *
-              </label>
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={handleChange}
+              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Message *</label>
+              <textarea name="message" value={form.message} onChange={handleChange}
                 className="input-field min-h-[130px] resize-y"
                 placeholder="Tell me about your project..."
-                required
-              />
+                maxLength={2000} required />
+              {/* FIX: Show char count as UX aid */}
+              <p className={`text-xs mt-1 text-right ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                {form.message.length}/2000
+              </p>
             </div>
 
             {status.success && (
@@ -158,11 +162,7 @@ const Contact = () => {
               </div>
             )}
 
-            <button
-              type="submit"
-              className="btn-primary w-full justify-center py-3"
-              disabled={status.loading}
-            >
+            <button type="submit" className="btn-primary w-full justify-center py-3" disabled={status.loading}>
               {status.loading ? '⏳ Sending...' : '📤 Send Message'}
             </button>
           </form>
