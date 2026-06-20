@@ -43,7 +43,6 @@ frontend/
 │   │   │   ├── AdminProjects.jsx   # List + Form
 │   │   │   ├── AdminSkills.jsx
 │   │   │   ├── AdminEducation.jsx
-│   │   │   ├── AdminBlogs.jsx
 │   │   │   └── AdminMessages.jsx
 │   │   └── public/
 │   │       ├── Home.jsx
@@ -51,8 +50,6 @@ frontend/
 │   │       ├── Education.jsx
 │   │       ├── Skills.jsx
 │   │       ├── Projects.jsx
-│   │       ├── Blog.jsx
-│   │       ├── BlogDetail.jsx
 │   │       └── Contact.jsx
 │   ├── utils/
 │   │   └── api.js                  # Axios instance with interceptors
@@ -139,8 +136,6 @@ The app uses **JWT stored in localStorage** for admin authentication.
 | `/education` | Education timeline |
 | `/skills` | Skills with progress bars |
 | `/projects` | Projects grid |
-| `/blog` | Blog posts list |
-| `/blog/:id` | Blog post detail |
 | `/contact` | Contact form |
 
 ## Admin Routes (Protected)
@@ -154,7 +149,6 @@ The app uses **JWT stored in localStorage** for admin authentication.
 | `/admin/projects/edit/:id` | Edit project form |
 | `/admin/skills` | Manage skills |
 | `/admin/education` | Manage education |
-| `/admin/blogs` | Manage blog posts |
 | `/admin/messages` | View contact messages |
 
 ---
