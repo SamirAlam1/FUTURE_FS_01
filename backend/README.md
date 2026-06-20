@@ -90,7 +90,6 @@ npm run dev
 | `JWT_EXPIRE` | Token expiry duration | `7d` |
 | `FRONTEND_URL` | Frontend URL for CORS | `http://localhost:5173` |
 | `ADMIN_EMAIL` | Seed admin email | `admin@portfolio.com` |
-| `ADMIN_PASSWORD` | Seed admin password | `Admin@123456` |
 
 ---
 
