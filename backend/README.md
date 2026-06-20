@@ -27,24 +27,22 @@ backend/
 │   ├── projectController.js
 │   ├── skillController.js
 │   ├── educationController.js
-│   ├── blogController.js
 │   └── messageController.js
 ├── middleware/
 │   ├── auth.js             # JWT protect middleware
 │   └── errorHandler.js     # Global error handler
+|   └── validate.js
 ├── models/
 │   ├── User.js
 │   ├── Project.js
 │   ├── Skill.js
 │   ├── Education.js
-│   ├── Blog.js
 │   └── Message.js
 ├── routes/
 │   ├── auth.js
 │   ├── projects.js
 │   ├── skills.js
 │   ├── education.js
-│   ├── blogs.js
 │   └── messages.js
 ├── utils/
 │   └── seed.js             # Database seeder
@@ -135,16 +133,6 @@ npm run dev
 | `POST` | `/api/education` | Private | Create entry |
 | `PUT` | `/api/education/:id` | Private | Update entry |
 | `DELETE` | `/api/education/:id` | Private | Delete entry |
-
-### Blog Posts
-
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| `GET` | `/api/blogs` | Public | Get published posts |
-| `GET` | `/api/blogs/:id` | Public | Get post by ID or slug |
-| `POST` | `/api/blogs` | Private | Create post |
-| `PUT` | `/api/blogs/:id` | Private | Update post |
-| `DELETE` | `/api/blogs/:id` | Private | Delete post |
 
 ### Messages (Contact Form)
 
