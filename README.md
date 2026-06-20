@@ -131,11 +131,6 @@ name, category (Frontend/Backend/DB/DevOps/Tools), level (1-100), icon, order
 institution, degree, fieldOfStudy, startYear, endYear, grade, description
 ```
 
-### Blog
-```
-title, slug (auto), excerpt, content (Markdown), tags[], coverImage, published, readTime
-```
-
 ### Message
 ```
 name, email, subject, message, read (bool)
