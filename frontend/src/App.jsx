@@ -17,7 +17,8 @@ import Projects   from './pages/public/Projects';
 // import Blog       from './pages/public/Blog';
 // import BlogDetail from './pages/public/BlogDetail';
 // import Gallery    from './pages/public/Gallery';
-import Contact    from './pages/public/Contact';
+import Contact         from './pages/public/Contact';
+import Certifications  from './pages/public/Certifications';
 
 // Admin Pages
 import AdminLogin  from './pages/admin/AdminLogin';
@@ -25,6 +26,7 @@ import Dashboard   from './pages/admin/Dashboard';
 import { AdminProjectsList, AdminProjectForm }   from './pages/admin/AdminProjects';
 import { AdminSkillsList,   AdminSkillForm }     from './pages/admin/AdminSkills';
 import { AdminEducationList, AdminEducationForm } from './pages/admin/AdminEducation';
+import { AdminCertificationsList, AdminCertificationForm } from './pages/admin/AdminCertifications';
 // import { AdminBlogList,     AdminBlogForm }      from './pages/admin/AdminBlogs';
 // import { AdminGalleryList,  AdminGalleryForm }   from './pages/admin/AdminGallery';
 import AdminMessages from './pages/admin/AdminMessages';
@@ -52,7 +54,8 @@ function App() {
             {/* <Route path="/blog"      element={<PublicLayout><Blog /></PublicLayout>} />
             <Route path="/blog/:id"  element={<PublicLayout><BlogDetail /></PublicLayout>} />
             <Route path="/gallery"   element={<PublicLayout><Gallery /></PublicLayout>} /> */}
-            <Route path="/contact"   element={<PublicLayout><Contact /></PublicLayout>} />
+            <Route path="/contact"          element={<PublicLayout><Contact /></PublicLayout>} />
+            <Route path="/certifications"   element={<PublicLayout><Certifications /></PublicLayout>} />
 
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
@@ -66,9 +69,12 @@ function App() {
                 <Route path="/admin/skills"           element={<AdminSkillsList />} />
                 <Route path="/admin/skills/new"       element={<AdminSkillForm />} />
                 <Route path="/admin/skills/edit/:id"  element={<AdminSkillForm />} />
-                <Route path="/admin/education"        element={<AdminEducationList />} />
-                <Route path="/admin/education/new"    element={<AdminEducationForm />} />
-                <Route path="/admin/education/edit/:id" element={<AdminEducationForm />} />
+                <Route path="/admin/education"           element={<AdminEducationList />} />
+                <Route path="/admin/education/new"       element={<AdminEducationForm />} />
+                <Route path="/admin/education/edit/:id"  element={<AdminEducationForm />} />
+                <Route path="/admin/certifications"          element={<AdminCertificationsList />} />
+                <Route path="/admin/certifications/new"      element={<AdminCertificationForm />} />
+                <Route path="/admin/certifications/edit/:id" element={<AdminCertificationForm />} />
                 {/* <Route path="/admin/blogs"            element={<AdminBlogList />} />
                 <Route path="/admin/blogs/new"        element={<AdminBlogForm />} />
                 <Route path="/admin/blogs/edit/:id"   element={<AdminBlogForm />} />
