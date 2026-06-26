@@ -4,13 +4,12 @@ import { useTheme } from '../../context/ThemeContext';
 import ThemeToggle from '../shared/ThemeToggle';
 
 const menuItems = [
-  { to: '/admin/dashboard', label: 'Dashboard',        icon: '📊' },
-  { to: '/admin/projects',  label: 'Projects',         icon: '💼' },
-  { to: '/admin/skills',    label: 'Skills',           icon: '🛠️' },
-  { to: '/admin/education', label: 'Education',        icon: '🎓' },
-  // { to: '/admin/blogs',     label: 'Blog Posts',       icon: '📝' },
-  // { to: '/admin/gallery',   label: 'Gallery',          icon: '🖼️' },
-  { to: '/admin/messages',  label: 'Contact Messages', icon: '✉️' },
+  { to: '/admin/dashboard',       label: 'Dashboard',        icon: '📊' },
+  { to: '/admin/projects',        label: 'Projects',         icon: '💼' },
+  { to: '/admin/skills',          label: 'Skills',           icon: '🛠️' },
+  { to: '/admin/education',       label: 'Education',        icon: '🎓' },
+  { to: '/admin/certifications',  label: 'Certifications',   icon: '🏅' },
+  { to: '/admin/messages',        label: 'Contact Messages', icon: '✉️' },
 ];
 
 const AdminSidebar = ({ onClose }) => {
