@@ -27,7 +27,8 @@ const login = async (req, res, next) => {
 
     // FIX: Use a constant-time comparison dummy to avoid timing oracle.
     // bcrypt.compare on a dummy hash takes the same time as a real compare.
-    const isMatch = user ? await user.comparePassword(password) : false;
+    // const isMatch = user ? await user.comparePassword(password) : false;
+    const isMatch = user ? await user.matchPassword(password) : false;
 
     if (!user || !isMatch) {
       // FIX: Same generic message for both "no user" and "wrong password"
@@ -99,7 +100,8 @@ const changePassword = async (req, res, next) => {
     const user = await User.findById(req.user.id).select('+password');
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
-    const isMatch = await user.comparePassword(currentPassword);
+    // const isMatch = await user.comparePassword(currentPassword);
+    const isMatch = await user.matchPassword(currentPassword);
     if (!isMatch) {
       return res.status(401).json({ success: false, message: 'Current password is incorrect' });
     }
