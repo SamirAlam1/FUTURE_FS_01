@@ -35,17 +35,17 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [projects, skills, education, messages] = await Promise.all([
+        const [projects, skills, education, messages, certifications] = await Promise.all([
           API.get('/projects'), API.get('/skills'), API.get('/education'),
-          API.get('/messages'),
+          API.get('/messages'), API.get('/certifications'),
         ]);
         setStats({
-          projects:  projects.data.count,
-          skills:    skills.data.count,
-          education: education.data.count,
-          // blogs:     blogs.data.count,
-          messages:  messages.data.count,
-          unread:    messages.data.data.filter((m) => !m.read).length,
+          projects:       projects.data.count,
+          skills:         skills.data.count,
+          education:      education.data.count,
+          messages:       messages.data.count,
+          certifications: certifications.data.count,
+          unread:         messages.data.data.filter((m) => !m.read).length,
         });
         setRecentMessages(messages.data.data.slice(0, 5));
       } catch (err) { console.error(err); }
@@ -57,12 +57,12 @@ const Dashboard = () => {
   if (loading) return <LoadingSpinner size="lg" className="py-20" />;
 
   const statCards = [
-    { label: 'Projects',        value: stats.projects,  icon: '💼', to: '/admin/projects',  gradient: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05))' },
-    { label: 'Skills',          value: stats.skills,    icon: '🛠️', to: '/admin/skills',    gradient: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05))'  },
-    { label: 'Education',       value: stats.education, icon: '🎓', to: '/admin/education', gradient: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05))' },
-    // { label: 'Blog Posts',      value: stats.blogs,     icon: '📝', to: '/admin/blogs',     gradient: 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05))' },
-    { label: 'Total Messages',  value: stats.messages,  icon: '✉️', to: '/admin/messages',  gradient: 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(236,72,153,0.05))' },
-    { label: 'Unread Messages', value: stats.unread,    icon: '🔔', to: '/admin/messages',  gradient: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05))'   },
+    { label: 'Projects',        value: stats.projects,       icon: '💼', to: '/admin/projects',       gradient: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05))' },
+    { label: 'Skills',          value: stats.skills,         icon: '🛠️', to: '/admin/skills',         gradient: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05))'  },
+    { label: 'Education',       value: stats.education,      icon: '🎓', to: '/admin/education',      gradient: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05))' },
+    { label: 'Certifications',  value: stats.certifications, icon: '🏅', to: '/admin/certifications', gradient: 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05))' },
+    { label: 'Total Messages',  value: stats.messages,       icon: '✉️', to: '/admin/messages',       gradient: 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(236,72,153,0.05))' },
+    { label: 'Unread Messages', value: stats.unread,         icon: '🔔', to: '/admin/messages',       gradient: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05))'   },
   ];
 
   return (
