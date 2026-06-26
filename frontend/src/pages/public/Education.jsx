@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import API from '../../utils/api';
 import LoadingSpinner from '../../components/shared/LoadingSpinner';
 import { useTheme } from '../../context/ThemeContext';
@@ -16,8 +17,20 @@ const Education = () => {
     <main className="min-h-screen pt-24 pb-20 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="mb-12">
-          <h1 className="section-title">Education</h1>
-          <p className="section-subtitle">A summary of my education, certifications, and consistent efforts toward learning and professional development.</p>
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-2">
+            <div>
+              <h1 className="section-title">Education</h1>
+              <p className="section-subtitle">A summary of my education and consistent efforts toward learning.</p>
+            </div>
+            <Link to="/certifications"
+              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all duration-200 mb-12 ${
+                isDark
+                  ? 'border-violet-500/30 text-violet-300 hover:bg-violet-500/10 hover:border-violet-400'
+                  : 'border-violet-300 text-violet-700 hover:bg-violet-50 hover:border-violet-500'
+              }`}>
+              🏅 View Certifications →
+            </Link>
+          </div>
         </div>
 
         {loading ? <LoadingSpinner size="lg" className="py-20" /> :
