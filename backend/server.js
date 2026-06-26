@@ -97,6 +97,7 @@ app.use('/api/messages',  messageLimiter, require('./routes/messages'));
 app.use('/api/projects',  require('./routes/projects'));
 app.use('/api/skills',    require('./routes/skills'));
 app.use('/api/education', require('./routes/education'));
+app.use('/api/certifications',  require('./routes/certifications'));
 
 // ─── SEED ROUTE REMOVED FROM PRODUCTION ──────────────────────────────────────
 // FIX: /api/seed route is intentionally NOT mounted here.
