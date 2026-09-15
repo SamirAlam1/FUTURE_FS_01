@@ -1,0 +1,31 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ─── Security headers ─────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent MIME-type sniffing
+    X-Content-Type-Options = "nosniff"
+    # Block framing (clickjacking)
+    X-Frame-Options = "DENY"
+    # Enforce HTTPS for 1 year
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Referrer policy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Permissions policy — disable unused browser features
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    # Content Security Policy
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-G9v+QmIY1p+2LMeH3fFQy+ic+PB/lTw7ARkWjwr+BDk='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.samiralam.dev; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'"
+
+# ─── Cache static assets ──────────────────────────────────────
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

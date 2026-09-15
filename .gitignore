@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+.next/
+out/
+.vercel/
+
+# Logs
+*.log
+logs/
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage & testing
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache/
+.vite/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editors
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# Local uploads / generated files
+uploads/
+storage/
+
+# Certificates / private keys
+*.pem
+*.key
+*.crt
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+
+# TypeScript
+*.tsbuildinfo

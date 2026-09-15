@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Primary meta -->
+    <title>Samir Alam — Full-Stack Developer</title>
+    <meta name="description" content="Samir Alam is a full-stack developer building fast, reliable web applications with the MERN stack. Open to new roles." />
+    <meta name="author" content="Samir Alam" />
+    <meta name="keywords" content="Samir Alam, full-stack developer, MERN stack, React, Node.js, MongoDB, portfolio" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Samir Alam — Full-Stack Developer" />
+    <meta property="og:description" content="Full-stack developer focused on the MERN stack — building fast, user-centred web applications with clean architecture." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://samiralam-portfolio.vercel.app" />
+    <meta property="og:image" content="https://samiralam-portfolio.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Samir Alam — Full-Stack Developer portfolio" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Samir Alam — Full-Stack Developer" />
+    <meta name="twitter:description" content="Full-stack developer focused on the MERN stack — building fast, user-centred web applications." />
+    <meta name="twitter:image" content="https://samiralam-portfolio.vercel.app/og-image.png" />
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://samiralam-portfolio.vercel.app" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Prevent theme flash on load — must be synchronous, before React hydrates -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('portfolio-theme')
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          if (saved === 'dark' || (!saved && prefersDark)) {
+            document.documentElement.classList.add('dark')
+          }
+        } catch (_) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
