@@ -6,18 +6,39 @@ import { PROJECTS, PROJECT_CATEGORIES } from '../data/portfolio'
 import { API_BASE } from '../lib/api'
 
 type Project = {
-  _id?: string; id?: string; title: string; description: string; category: string;
-  techStack: string[]; featured?: boolean; liveUrl?: string; githubUrl?: string;
-  image?: string; year?: string | number; order?: number; highlights?: string[]
+  _id?: string
+  id?: string
+  title: string
+  description: string
+  category: string
+  techStack: string[]
+  featured?: boolean
+  liveUrl?: string
+  githubUrl?: string
+  image?: string
+  year?: string | number
+  order?: number
+  highlights?: string[]
 }
 
 function ArrowUpRightIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="7" y1="17" x2="17" y2="7" />
+      <polyline points="7 7 17 7 17 17" />
     </svg>
   )
 }
+
 function GithubIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -25,22 +46,50 @@ function GithubIcon() {
     </svg>
   )
 }
+
 function SearchIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-    </svg>
-  )
-}
-function XIcon() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
     </svg>
   )
 }
 
-function EmptyState({ hasFilters, onClear }: { hasFilters: boolean; onClear: () => void }) {
+function XIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  )
+}
+
+function EmptyState({
+  hasFilters,
+  onClear,
+}: {
+  hasFilters: boolean
+  onClear: () => void
+}) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
       <div
@@ -49,12 +98,23 @@ function EmptyState({ hasFilters, onClear }: { hasFilters: boolean; onClear: () 
       >
         <SearchIcon />
       </div>
-      <h3 className="text-[16px] font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+
+      <h3
+        className="text-[16px] font-semibold mb-2"
+        style={{ color: 'var(--text-primary)' }}
+      >
         No projects found
       </h3>
-      <p className="text-small mb-5" style={{ color: 'var(--text-muted)' }}>
-        {hasFilters ? 'Try a different search or filter.' : 'No projects available.'}
+
+      <p
+        className="text-small mb-5"
+        style={{ color: 'var(--text-muted)' }}
+      >
+        {hasFilters
+          ? 'Try a different search or filter.'
+          : 'No projects available.'}
       </p>
+
       {hasFilters && (
         <button
           onClick={onClear}
@@ -72,9 +132,13 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <article
       className="group flex flex-col rounded-xl border overflow-hidden transition-all duration-200"
-      style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface)' }}
+      style={{
+        borderColor: 'var(--border)',
+        backgroundColor: 'var(--surface)',
+      }}
       onMouseEnter={e => {
-        e.currentTarget.style.boxShadow = '0 12px 32px -8px rgba(0,0,0,0.10)'
+        e.currentTarget.style.boxShadow =
+          '0 12px 32px -8px rgba(0,0,0,0.10)'
         e.currentTarget.style.borderColor = 'var(--text-muted)'
         e.currentTarget.style.transform = 'translateY(-2px)'
       }}
@@ -87,7 +151,10 @@ function ProjectCard({ project }: { project: Project }) {
       {/* Image */}
       <div
         className="relative overflow-hidden"
-        style={{ height: '188px', backgroundColor: 'var(--surface-elevated)' }}
+        style={{
+          height: '188px',
+          backgroundColor: 'var(--surface-elevated)',
+        }}
       >
         {project.image && (
           <img
@@ -97,6 +164,7 @@ function ProjectCard({ project }: { project: Project }) {
             loading="lazy"
           />
         )}
+
         <div className="absolute top-3 left-3 flex items-center gap-2">
           <span
             className="text-caption font-medium px-2.5 py-1 rounded-full"
@@ -109,6 +177,7 @@ function ProjectCard({ project }: { project: Project }) {
           >
             {project.category}
           </span>
+
           {project.featured && (
             <span
               className="text-caption font-medium px-2.5 py-1 rounded-full"
@@ -127,26 +196,33 @@ function ProjectCard({ project }: { project: Project }) {
         {/* Hover actions */}
         <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
           {project.liveUrl && (
-            
+            <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={e => e.stopPropagation()}
               className="w-8 h-8 flex items-center justify-center rounded-full backdrop-blur-sm transition-transform duration-150 hover:scale-105"
-              style={{ backgroundColor: 'rgba(255,255,255,0.9)', color: '#111' }}
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                color: '#111',
+              }}
               aria-label="View live demo"
             >
               <ArrowUpRightIcon />
             </a>
           )}
+
           {project.githubUrl && (
-            
+            <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={e => e.stopPropagation()}
               className="w-8 h-8 flex items-center justify-center rounded-full backdrop-blur-sm transition-transform duration-150 hover:scale-105"
-              style={{ backgroundColor: 'rgba(255,255,255,0.9)', color: '#111' }}
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                color: '#111',
+              }}
               aria-label="View source code"
             >
               <GithubIcon />
@@ -164,6 +240,7 @@ function ProjectCard({ project }: { project: Project }) {
           >
             {project.title}
           </h2>
+
           <span
             className="text-[12px] font-mono shrink-0 mt-0.5"
             style={{ color: 'var(--text-muted)' }}
@@ -172,23 +249,26 @@ function ProjectCard({ project }: { project: Project }) {
           </span>
         </div>
 
-        <p className="text-small flex-1 mb-4" style={{ color: 'var(--text-muted)' }}>
+        <p
+          className="text-small flex-1 mb-4"
+          style={{ color: 'var(--text-muted)' }}
+        >
           {project.description}
         </p>
 
         {project.highlights && project.highlights.length > 0 && (
           <div className="mb-4">
             <div className="flex flex-wrap gap-1.5">
-              {project.highlights.map(h => (
+              {project.highlights.map(highlight => (
                 <span
-                  key={h}
+                  key={highlight}
                   className="text-caption font-medium px-2 py-0.5 rounded"
                   style={{
                     backgroundColor: 'var(--accent-surface)',
                     color: 'var(--accent-text)',
                   }}
                 >
-                  {h}
+                  {highlight}
                 </span>
               ))}
             </div>
@@ -198,7 +278,9 @@ function ProjectCard({ project }: { project: Project }) {
         {/* Tech */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {project.techStack.map(tech => (
-            <span key={tech} className="tech-badge">{tech}</span>
+            <span key={tech} className="tech-badge">
+              {tech}
+            </span>
           ))}
         </div>
 
@@ -208,29 +290,43 @@ function ProjectCard({ project }: { project: Project }) {
           style={{ borderColor: 'var(--border)' }}
         >
           {project.liveUrl ? (
-            
+            <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-small font-medium transition-colors duration-150"
               style={{ color: 'var(--text-muted)' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+              onMouseEnter={e =>
+                (e.currentTarget.style.color = 'var(--text-primary)')
+              }
+              onMouseLeave={e =>
+                (e.currentTarget.style.color = 'var(--text-muted)')
+              }
             >
               Live demo <ArrowUpRightIcon />
             </a>
           ) : (
-            <span className="text-small" style={{ color: 'var(--border)' }}>No demo</span>
+            <span
+              className="text-small"
+              style={{ color: 'var(--border)' }}
+            >
+              No demo
+            </span>
           )}
+
           {project.githubUrl && (
-            
+            <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-small font-medium transition-colors duration-150"
               style={{ color: 'var(--text-muted)' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+              onMouseEnter={e =>
+                (e.currentTarget.style.color = 'var(--text-primary)')
+              }
+              onMouseLeave={e =>
+                (e.currentTarget.style.color = 'var(--text-muted)')
+              }
             >
               <GithubIcon /> Source
             </a>
@@ -249,30 +345,47 @@ export default function Projects() {
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
+
     fetch(`${API_BASE}/projects`)
-      .then(r => { if (!r.ok) throw new Error('fetch failed'); return r.json() })
+      .then(response => {
+        if (!response.ok) throw new Error('fetch failed')
+        return response.json()
+      })
       .then(result => {
-        const data: Project[] = Array.isArray(result.data) ? result.data : Array.isArray(result) ? result : []
+        const data: Project[] = Array.isArray(result.data)
+          ? result.data
+          : Array.isArray(result)
+            ? result
+            : []
+
         if (data.length > 0) setProjects(data)
       })
-      .catch(() => { /* keep static fallback */ })
+      .catch(() => {
+        /* Keep static fallback */
+      })
   }, [])
 
   const filtered = projects
-    .filter(p => {
-      const matchCat = category === 'All' || p.category === category
-      const q = search.toLowerCase()
+    .filter(project => {
+      const matchCategory =
+        category === 'All' || project.category === category
+
+      const query = search.toLowerCase()
+
       const matchSearch =
-        q === '' ||
-        p.title.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q) ||
-        p.techStack.some(t => t.toLowerCase().includes(q))
-      return matchCat && matchSearch
+        query === '' ||
+        project.title.toLowerCase().includes(query) ||
+        project.description.toLowerCase().includes(query) ||
+        project.techStack.some(tech =>
+          tech.toLowerCase().includes(query),
+        )
+
+      return matchCategory && matchSearch
     })
     .sort((a, b) =>
       sort === 'newest'
         ? Number(b.year) - Number(a.year)
-        : Number(a.year) - Number(b.year)
+        : Number(a.year) - Number(b.year),
     )
 
   const hasFilters = search !== '' || category !== 'All'
@@ -283,47 +396,77 @@ export default function Projects() {
   }
 
   return (
-    <div style={{ backgroundColor: 'var(--bg)', minHeight: '100vh' }}>
+    <div
+      style={{
+        backgroundColor: 'var(--bg)',
+        minHeight: '100vh',
+      }}
+    >
       <Navbar />
-      <main className="pt-[60px]">
 
+      <main className="pt-[60px]">
         {/* Page header */}
         <div
           className="border-b py-12 md:py-16"
-          style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface)' }}
+          style={{
+            borderColor: 'var(--border)',
+            backgroundColor: 'var(--surface)',
+          }}
         >
           <div className="max-w-[1280px] mx-auto px-5 sm:px-8">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 mb-5" aria-label="Breadcrumb">
+            <nav
+              className="flex items-center gap-2 mb-5"
+              aria-label="Breadcrumb"
+            >
               <Link
                 to="/"
                 className="text-small transition-colors duration-150"
                 style={{ color: 'var(--text-muted)' }}
-                onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
-                onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+                onMouseEnter={e =>
+                  (e.currentTarget.style.color = 'var(--text-primary)')
+                }
+                onMouseLeave={e =>
+                  (e.currentTarget.style.color = 'var(--text-muted)')
+                }
               >
                 Home
               </Link>
+
               <span style={{ color: 'var(--border)' }}>/</span>
-              <span className="text-small" style={{ color: 'var(--text-secondary)' }}>Projects</span>
+
+              <span
+                className="text-small"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Projects
+              </span>
             </nav>
+
             <h1
               className="text-h1"
-              style={{ color: 'var(--text-primary)', marginBottom: '10px' }}
+              style={{
+                color: 'var(--text-primary)',
+                marginBottom: '10px',
+              }}
             >
               All{' '}
               <span style={{ color: 'var(--accent)' }}>
                 projects.
               </span>
             </h1>
-            <p className="text-body" style={{ color: 'var(--text-secondary)' }}>
-              {projects.length} projects — full-stack applications, APIs, and frontend interfaces.
+
+            <p
+              className="text-body"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              {projects.length} projects — full-stack applications, APIs,
+              and frontend interfaces.
             </p>
           </div>
         </div>
 
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 py-10">
-
           {/* Filter bar */}
           <div className="flex flex-col sm:flex-row gap-3 mb-8">
             {/* Search */}
@@ -334,22 +477,33 @@ export default function Projects() {
               >
                 <SearchIcon />
               </span>
+
               <input
                 type="search"
                 placeholder="Search projects…"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 className="input-base"
-                style={{ paddingLeft: '38px', paddingRight: search ? '36px' : '14px' }}
+                style={{
+                  paddingLeft: '38px',
+                  paddingRight: search ? '36px' : '14px',
+                }}
                 aria-label="Search projects"
               />
+
               {search && (
                 <button
                   onClick={() => setSearch('')}
                   className="absolute right-3.5 top-1/2 -translate-y-1/2 transition-colors duration-150"
                   style={{ color: 'var(--text-muted)' }}
-                  onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+                  onMouseEnter={e =>
+                    (e.currentTarget.style.color =
+                      'var(--text-primary)')
+                  }
+                  onMouseLeave={e =>
+                    (e.currentTarget.style.color =
+                      'var(--text-muted)')
+                  }
                   aria-label="Clear search"
                 >
                   <XIcon />
@@ -358,20 +512,33 @@ export default function Projects() {
             </div>
 
             {/* Category pills */}
-            <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
-              {PROJECT_CATEGORIES.map(cat => (
+            <div
+              className="flex flex-wrap gap-2"
+              role="group"
+              aria-label="Filter by category"
+            >
+              {PROJECT_CATEGORIES.map(categoryName => (
                 <button
-                  key={cat}
-                  onClick={() => setCategory(cat)}
+                  key={categoryName}
+                  onClick={() => setCategory(categoryName)}
                   className="px-3.5 py-2 text-small font-medium rounded-full border transition-colors duration-150"
                   style={{
-                    borderColor: category === cat ? 'var(--accent)' : 'var(--border)',
-                    backgroundColor: category === cat ? 'var(--accent-surface)' : 'transparent',
-                    color: category === cat ? 'var(--accent)' : 'var(--text-secondary)',
+                    borderColor:
+                      category === categoryName
+                        ? 'var(--accent)'
+                        : 'var(--border)',
+                    backgroundColor:
+                      category === categoryName
+                        ? 'var(--accent-surface)'
+                        : 'transparent',
+                    color:
+                      category === categoryName
+                        ? 'var(--accent)'
+                        : 'var(--text-secondary)',
                   }}
-                  aria-pressed={category === cat}
+                  aria-pressed={category === categoryName}
                 >
-                  {cat}
+                  {categoryName}
                 </button>
               ))}
             </div>
@@ -380,9 +547,17 @@ export default function Projects() {
             <div className="sm:ml-auto">
               <select
                 value={sort}
-                onChange={e => setSort(e.target.value as 'newest' | 'oldest')}
+                onChange={e =>
+                  setSort(e.target.value as 'newest' | 'oldest')
+                }
                 className="input-base"
-                style={{ width: '100%', maxWidth: '180px', paddingRight: '32px', cursor: 'pointer', fontSize: '13px' }}
+                style={{
+                  width: '100%',
+                  maxWidth: '180px',
+                  paddingRight: '32px',
+                  cursor: 'pointer',
+                  fontSize: '13px',
+                }}
                 aria-label="Sort projects"
               >
                 <option value="newest">Newest first</option>
@@ -393,10 +568,16 @@ export default function Projects() {
 
           {/* Results summary */}
           <div className="flex items-center justify-between mb-6">
-            <p className="text-small" style={{ color: 'var(--text-muted)' }}>
+            <p
+              className="text-small"
+              style={{ color: 'var(--text-muted)' }}
+            >
               {filtered.length === 0
                 ? 'No results'
-                : `${filtered.length} project${filtered.length !== 1 ? 's' : ''}`}
+                : `${filtered.length} project${
+                    filtered.length !== 1 ? 's' : ''
+                  }`}
+
               {hasFilters && (
                 <button
                   onClick={clearFilters}
@@ -411,16 +592,23 @@ export default function Projects() {
 
           {/* Grid or empty state */}
           {filtered.length === 0 ? (
-            <EmptyState hasFilters={hasFilters} onClear={clearFilters} />
+            <EmptyState
+              hasFilters={hasFilters}
+              onClear={clearFilters}
+            />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {filtered.map(project => (
-                <ProjectCard key={project.id} project={project} />
+                <ProjectCard
+                  key={project.id ?? project._id}
+                  project={project}
+                />
               ))}
             </div>
           )}
         </div>
       </main>
+
       <Footer />
     </div>
   )
