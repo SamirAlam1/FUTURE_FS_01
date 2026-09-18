@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { CERTIFICATIONS } from '../data/portfolio'
-
-const API_BASE = import.meta.env.VITE_API_URL ?? '/api'
+import { API_BASE } from '../lib/api'
 
 type CertificationItem = {
   _id?: string
@@ -218,7 +217,7 @@ export default function Certifications() {
                   </span>
 
                   {cert.credentialUrl && (
-                    <a
+                    
                       href={cert.credentialUrl}
                       target="_blank"
                       rel="noopener noreferrer"
