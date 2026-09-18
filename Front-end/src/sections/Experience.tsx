@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { EXPERIENCE } from '../data/portfolio'
-
-const API_BASE = import.meta.env.VITE_API_URL ?? '/api'
+import { apiFetch } from '../lib/api'
 
 type ExperienceItem = {
   _id?: string
@@ -15,6 +14,11 @@ type ExperienceItem = {
   description: string
   highlights: string[]
   order?: number
+}
+
+type ExperienceResponse = {
+  success?: boolean
+  data?: ExperienceItem[]
 }
 
 function BriefcaseIcon() {
@@ -38,27 +42,23 @@ function BriefcaseIcon() {
 
 export default function Experience() {
   const ref = useRef<HTMLElement>(null)
+
   const [experiences, setExperiences] = useState<ExperienceItem[]>(
     EXPERIENCE as ExperienceItem[],
   )
 
   useEffect(() => {
-    fetch(`${API_BASE}/experience`)
+    apiFetch<ExperienceResponse>('/experience')
       .then(response => {
-        if (!response.ok) {
+        if (!response.ok || !Array.isArray(response.data?.data)) {
           throw new Error('Failed to fetch experience')
         }
 
-        return response.json()
-      })
-      .then(result => {
-        if (Array.isArray(result?.data)) {
-          setExperiences(
-            [...result.data].sort(
-              (a, b) => (a.order ?? 0) - (b.order ?? 0),
-            ),
-          )
-        }
+        setExperiences(
+          [...response.data.data].sort(
+            (a, b) => (a.order ?? 0) - (b.order ?? 0),
+          ),
+        )
       })
       .catch(() => {
         // Keep static portfolio data as fallback.
@@ -98,13 +98,11 @@ export default function Experience() {
       }}
     >
       <div className="max-w-[1280px] mx-auto px-5 sm:px-8">
-        {/* Tag */}
         <div className="section-tag reveal">
           <span className="section-tag-dot" />
           <span className="section-tag-label">Experience</span>
         </div>
 
-        {/* Heading */}
         <h2
           className="text-h1 reveal"
           style={{
@@ -129,24 +127,24 @@ export default function Experience() {
           Professional experience building and shipping software.
         </p>
 
-        {/* Timeline */}
         <div className="relative reveal">
           <div className="timeline-line hidden sm:block" />
 
           <div className="space-y-5">
             {experiences.map((exp, index) => {
-              const key = exp._id ?? exp.id ?? `${exp.company}-${exp.role}-${index}`
+              const key =
+                exp._id ??
+                exp.id ??
+                `${exp.company}-${exp.role}-${index}`
 
               return (
                 <div key={key} className="flex gap-5 sm:gap-8">
-                  {/* Dot */}
                   <div className="hidden sm:flex flex-col items-center shrink-0 pt-5">
                     <div className="timeline-dot">
                       <span className="timeline-dot-inner" />
                     </div>
                   </div>
 
-                  {/* Card */}
                   <article
                     className="flex-1 rounded-xl border overflow-hidden"
                     style={{
@@ -154,7 +152,6 @@ export default function Experience() {
                       backgroundColor: 'var(--bg)',
                     }}
                   >
-                    {/* Header */}
                     <div
                       className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 px-5 pt-5 pb-4 border-b"
                       style={{ borderColor: 'var(--border)' }}
@@ -214,7 +211,6 @@ export default function Experience() {
                       </div>
                     </div>
 
-                    {/* Body */}
                     <div className="px-5 py-4">
                       {exp.description && (
                         <p
@@ -240,6 +236,7 @@ export default function Experience() {
                                 >
                                   ·
                                 </span>
+
                                 <span>{point}</span>
                               </li>
                             ))}
