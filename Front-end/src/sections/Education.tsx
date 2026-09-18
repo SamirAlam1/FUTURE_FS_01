@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { EDUCATION } from '../data/portfolio'
-
-const API_BASE = import.meta.env.VITE_API_URL ?? '/api'
+import { API_BASE } from '../lib/api'
 
 type EducationEntry = {
   id: string
@@ -56,11 +55,6 @@ export default function Education() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  /*
-   * Fetch education from MongoDB through the public API.
-   * Static EDUCATION remains as a fallback so the section
-   * does not become empty if the backend is temporarily unavailable.
-   */
   useEffect(() => {
     let cancelled = false
 
@@ -95,10 +89,6 @@ export default function Education() {
           }),
         )
 
-        /*
-         * If the API is working but database has no entries,
-         * show the local portfolio data instead.
-         */
         setEntries(normalized.length > 0 ? normalized : EDUCATION)
       } catch {
         if (cancelled) return
@@ -119,9 +109,6 @@ export default function Education() {
     }
   }, [])
 
-  /*
-   * Existing reveal animation.
-   */
   useEffect(() => {
     const observer = new IntersectionObserver(
       observerEntries => {
