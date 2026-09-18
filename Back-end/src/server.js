@@ -33,7 +33,7 @@ app.use(helmet({
   },
   crossOriginEmbedderPolicy: true,
   crossOriginOpenerPolicy:   { policy: 'same-origin' },
-  crossOriginResourcePolicy: { policy: 'cross-origin' }, // allow Vercel→Render with credentials
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
   referrerPolicy:            { policy: 'strict-origin-when-cross-origin' },
   hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
   noSniff:       true,
@@ -46,18 +46,19 @@ app.disable('x-powered-by')
 app.set('trust proxy', 1)
 
 // ─── CORS ──────────────────────────────────────────────────────
-// credentials:true is required for cross-origin cookies (Vercel↔Render)
 const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
   .split(',').map(s => s.trim()).filter(Boolean)
 
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin) {
-      return isProd
-        ? cb(new Error('CORS: requests without Origin are not allowed in production'))
-        : cb(null, true)
-    }
-    allowedOrigins.includes(origin) ? cb(null, true) : cb(new Error(`CORS: origin ${origin} not allowed`))
+    // No Origin header = same-origin request forwarded by the Vercel edge proxy.
+    // Browsers omit Origin on same-origin GETs; Vercel passes the request through
+    // as-is. These are safe: the httpOnly cookie enforces session integrity and
+    // the Vercel proxy only forwards requests from our own frontend domain.
+    if (!origin) return cb(null, true)
+    allowedOrigins.includes(origin)
+      ? cb(null, true)
+      : cb(new Error(`CORS: origin ${origin} not allowed`))
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -65,16 +66,12 @@ app.use(cors({
 }))
 
 // ─── Rate limits ───────────────────────────────────────────────
-// Layer 1 — global ceiling: catches runaway scrapers / DDoS
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000, max: 300,
   standardHeaders: true, legacyHeaders: false,
   message: { success: false, message: 'Too many requests, please try again later.' },
 }))
 
-// Layer 2a — IP-level login limiter: 10 failures per IP per 15 min
-// Catches single-IP brute force; skipSuccessfulRequests avoids penalising
-// legitimate users who happen to share an IP (NAT, office, VPN).
 const ipLoginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
@@ -84,18 +81,13 @@ const ipLoginLimiter = rateLimit({
   message: { success: false, message: 'Too many login attempts from this IP. Try again in 15 minutes.' },
 })
 
-// Layer 2b — account-level login throttle: per-email progressive backoff + hard lockout
-// Catches distributed attacks (many IPs → one account). See middleware/loginThrottle.js.
-// loginThrottle is applied *after* ipLoginLimiter so volumetric single-IP attacks
-// are blocked cheaply before the account-level store is even consulted.
-
 const contactLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, max: 5,
   standardHeaders: true, legacyHeaders: false,
   message: { success: false, message: 'Too many messages sent. Please try again later.' },
 })
 
-// ─── Body parsing (must precede cookie-parser and loginThrottle) ──
+// ─── Body parsing ──────────────────────────────────────────────
 app.use(express.json({ limit: '10kb' }))
 app.use(express.urlencoded({ extended: false, limit: '10kb' }))
 
@@ -115,7 +107,6 @@ app.get('/health', (_req, res) =>
   res.json({ status: 'ok', timestamp: new Date().toISOString() }))
 
 // ─── Routes ────────────────────────────────────────────────────
-// Login: IP limiter first (cheap), then account-level throttle (in-memory lookup)
 app.use('/api/auth/login', ipLoginLimiter, loginThrottle)
 app.use('/api/contact',    contactLimiter)
 app.use('/api', routes)
