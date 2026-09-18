@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { SKILLS, SKILL_CATEGORIES } from '../data/portfolio'
-
-const API_BASE = import.meta.env.VITE_API_URL ?? '/api'
+import { API_BASE } from '../lib/api'
 
 type Skill = { _id?: string; id?: string; name: string; category: string; proficiency: number; order?: number }
 
