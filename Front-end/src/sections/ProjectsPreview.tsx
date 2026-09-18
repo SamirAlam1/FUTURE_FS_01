@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import { PROJECTS, PROJECT_CATEGORIES } from '../data/portfolio'
 import { API_BASE } from '../lib/api'
 
@@ -608,8 +607,6 @@ export default function Projects() {
           )}
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }
