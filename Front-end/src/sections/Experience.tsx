@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { EXPERIENCE } from '../data/portfolio'
-import { API_BASE } from '../lib/api'
+
+const API_BASE = import.meta.env.VITE_API_URL ?? '/api'
 
 type ExperienceItem = {
   _id?: string
