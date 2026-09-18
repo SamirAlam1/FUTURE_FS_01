@@ -52,9 +52,9 @@ function ExternalLinkIcon() {
 export default function Certifications() {
   const ref = useRef<HTMLElement>(null)
 
-  const [certifications, setCertifications] = useState<CertificationItem[]>(
-    CERTIFICATIONS as CertificationItem[],
-  )
+  const [certifications, setCertifications] = useState<
+    CertificationItem[]
+  >(CERTIFICATIONS as CertificationItem[])
 
   useEffect(() => {
     fetch(`${API_BASE}/certifications`)
@@ -140,7 +140,8 @@ export default function Certifications() {
             marginBottom: '44px',
           }}
         >
-          Formal recognition of technical proficiency across key disciplines.
+          Formal recognition of technical proficiency across key
+          disciplines.
         </p>
 
         {/* Certification List */}
@@ -217,7 +218,7 @@ export default function Certifications() {
                   </span>
 
                   {cert.credentialUrl && (
-                    
+                    <a
                       href={cert.credentialUrl}
                       target="_blank"
                       rel="noopener noreferrer"
