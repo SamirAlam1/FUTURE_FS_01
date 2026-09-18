@@ -169,7 +169,10 @@ export default function ExperienceList() {
     field: K,
     value: FormData[K],
   ) => {
-    setForm((current) => ({ ...current, [field]: value }))
+    setForm((current) => ({
+      ...current,
+      [field]: value,
+    }))
   }
 
   const openAdd = () => {
@@ -180,6 +183,7 @@ export default function ExperienceList() {
 
   const openEdit = (item: Experience) => {
     setEditingId(item._id ?? null)
+
     setForm({
       company: item.company ?? '',
       role: item.role ?? '',
@@ -191,11 +195,13 @@ export default function ExperienceList() {
       highlights: item.highlights?.join('\n') ?? '',
       order: item.order ?? 0,
     })
+
     setShowModal(true)
   }
 
   const closeModal = () => {
     if (saving) return
+
     setShowModal(false)
     setEditingId(null)
     setForm({ ...EMPTY_FORM })
@@ -227,8 +233,12 @@ export default function ExperienceList() {
         order: Number(form.order) || 0,
       }
 
+      const endpoint = editingId
+        ? `/admin/experience/${editingId}`
+        : '/admin/experience'
+
       const response = await apiFetch<ApiResponse>(
-        editingId ? `/experience/${editingId}` : '/experience',
+        endpoint,
         {
           method: editingId ? 'PUT' : 'POST',
           body: JSON.stringify(payload),
@@ -243,7 +253,6 @@ export default function ExperienceList() {
 
       await loadExperiences()
 
-      // Close directly because saving is still true here.
       setShowModal(false)
       setEditingId(null)
       setForm({ ...EMPTY_FORM })
@@ -259,12 +268,16 @@ export default function ExperienceList() {
   }
 
   const handleDelete = async (id?: string) => {
-    if (!id || !window.confirm('Delete this experience?')) return
+    if (!id || !window.confirm('Delete this experience?')) {
+      return
+    }
 
     try {
       const response = await apiFetch<ApiResponse>(
-        `/experience/${id}`,
-        { method: 'DELETE' },
+        `/admin/experience/${id}`,
+        {
+          method: 'DELETE',
+        },
       )
 
       if (!response.ok) {
@@ -285,7 +298,6 @@ export default function ExperienceList() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">
@@ -308,7 +320,6 @@ export default function ExperienceList() {
         </button>
       </div>
 
-      {/* List */}
       {loading ? (
         <div className="rounded-2xl border border-border bg-card p-8 text-sm text-muted-foreground">
           Loading experiences...
@@ -415,19 +426,19 @@ export default function ExperienceList() {
         </div>
       )}
 
-      {/* Modal */}
       {showModal && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-3 sm:p-4"
           onMouseDown={(e) => {
-            if (e.target === e.currentTarget) closeModal()
+            if (e.target === e.currentTarget) {
+              closeModal()
+            }
           }}
         >
           <div
             className="flex w-full max-w-[680px] max-h-[calc(100vh-1.5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-2xl dark:bg-[#171716] sm:max-h-[calc(100vh-2rem)]"
             onMouseDown={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
             <div className="flex shrink-0 items-center justify-between border-b border-border px-5 py-4 sm:px-6 sm:py-5">
               <div>
                 <h3 className="text-xl font-medium tracking-tight">
@@ -452,7 +463,6 @@ export default function ExperienceList() {
               </button>
             </div>
 
-            {/* Scrollable Form */}
             <form
               onSubmit={handleSubmit}
               className="flex min-h-0 flex-1 flex-col"
@@ -572,7 +582,6 @@ export default function ExperienceList() {
                 </div>
               </div>
 
-              {/* Footer */}
               <div className="flex shrink-0 items-center justify-end gap-3 border-t border-border px-5 py-4 sm:px-6">
                 <button
                   type="button"
